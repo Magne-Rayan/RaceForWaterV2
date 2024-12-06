@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+    <link rel="stylesheet" href="/assets/styles/questionaire.css">
+{% endblock %}
+{% block title %}
+    Quiz
+{% endblock %}
+{% block body %}
+    <h1>Quiz</h1>
+    <div class="container">
+        <h1>Quiz</h1>
+        <div id="quiz">
+            <p class="question">TEST</p>
+            <form action="" method="post">
+                <div class="option">
+                    <input name="choix" value="" type="checkbox"/>
+                    <label>Paris</label>
+                </div>
+                <button id="submit" name="soumettre" class="button">Soumettre</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
