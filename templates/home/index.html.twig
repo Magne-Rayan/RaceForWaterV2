@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaceForWater - Le Corps Humain et l'Océan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #001f3f, #0077be);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.5em;
+            color: #7fdbff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .image-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .anatomy-image {
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .summary-area {
+            width: 50%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(127, 219, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hotspot:hover {
+            background-color: #7fdbff;
+            transform: scale(1.2);
+        }
+
+        .secondary-container {
+            margin-top: 20px;
+        }
+
+        .secondary-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #7fdbff;
+            color: #001f3f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #a3d7ff;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #7fdbff;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .image-container,
+            .summary-area {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1 class="title">RaceForWater: Le Corps Humain et l'Océan</h1>
+<div class="main-content">
+    <div class="image-container">
+        <img id="main-image" src="" alt="Corps humain" class="anatomy-image">
+
+            <div
+                    class="hotspot"
+                    style="left: 20rem; top: 20rem;"
+                    data-name=""
+                    data-info=""
+                    data-image=""
+                    data-text=""
+                    data-secondary-image=""
+                    data-secondary-text=""
+            ></div>
+
+    </div>
+    <div class="summary-area">
+        <h2 id="summary-title"></h2>
+        <div id="summary-text">
+            <p></p>
+        </div>
+        <div id="secondary-container" class="secondary-container" style="display: none;">
+            <img id="secondary-image" src="" alt="Détail supplémentaire" class="secondary-image">
+            <p id="secondary-text"></p>
+        </div>
+        <button id="back-button" class="back-button" style="display: none;">Retour à la vue d'ensemble</button>
+    </div>
+</div>
+
+<script>
+    const hotspots = document.querySelectorAll('.hotspot');
+    const mainImage = document.getElementById('main-image');
+    const summaryTitle = document.getElementById('summary-title');
+    const summaryText = document.getElementById('summary-text');
+    const secondaryContainer = document.getElementById('secondary-container');
+    const secondaryImage = document.getElementById('secondary-image');
+    const secondaryText = document.getElementById('secondary-text');
+    const backButton = document.getElementById('back-button');
+    const defaultImage = "";
+    const defaultTitle = "";
+    const defaultText = "";
+
+    hotspots.forEach(hotspot => {
+        hotspot.addEventListener('click', () => {
+            const name = hotspot.dataset.name;
+            const info = hotspot.dataset.info;
+            const image = hotspot.dataset.image;
+            const text = hotspot.dataset.text;
+            const secondaryImageData = hotspot.dataset.secondaryImage;
+            const secondaryTextData = hotspot.dataset.secondaryText;
+
+            summaryTitle.textContent = name;
+            summaryText.innerHTML = `<p>${text}</p>`;
+            mainImage.src = image;
+            mainImage.alt = name;
+
+            secondaryImage.src = secondaryImageData;
+            secondaryImage.alt = `${name} - Analogie océanique`;
+            secondaryText.innerHTML = `<p>${secondaryTextData}</p>`;
+            secondaryContainer.style.display = 'block';
+
+            hotspots.forEach(el => el.style.display = 'none');
+            backButton.style.display = 'block';
+        });
+    });
+
+    backButton.addEventListener('click', () => {
+        summaryTitle.textContent = defaultTitle;
+        summaryText.innerHTML = defaultText;
+        mainImage.src = defaultImage;
+        mainImage.alt = "Corps humain";
+
+        secondaryContainer.style.display = 'none';
+
+        hotspots.forEach(el => el.style.display = 'block');
+        backButton.style.display = 'none';
+    });
+</script>
+</body>
+</html>

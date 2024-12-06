@@ -17,11 +17,6 @@ class Question
 
     #[ORM\Column(length: 255)]
     private ?string $question = null;
-
-    #[ORM\ManyToOne(inversedBy: 'question')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?UserSecurity $refUser = null;
-
     /**
      * @var Collection<int, Reponse>
      */
@@ -57,19 +52,6 @@ class Question
 
         return $this;
     }
-
-    public function getRefUser(): ?UserSecurity
-    {
-        return $this->refUser;
-    }
-
-    public function setRefUser(?UserSecurity $refUser): static
-    {
-        $this->refUser = $refUser;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Reponse>
      */
