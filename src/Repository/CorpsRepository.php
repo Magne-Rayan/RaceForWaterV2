@@ -40,4 +40,28 @@ class CorpsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function recupImage()
+    {
+        $corps = new Corps();
+
+        // Récupérez le BLOB (ressource)
+
+        $imageBlob = $corps->getImage();
+
+        if (is_resource($imageBlob)) {
+            // Convertissez la ressource en une chaîne
+            $imageContent = stream_get_contents($imageBlob);
+            fclose($imageBlob); // Fermez la ressource une fois utilisée
+        } else {
+            $imageContent = $imageBlob; // Si ce n'est pas une ressource, utilisez-la directement
+        }
+
+        // Encodez en Base64
+        $imageBase64 = base64_encode($imageContent);
+
+        return $this->render('corps/index.html.twig', [
+            'imageBase64' => $imageBase64,
+        ]);
+    }
 }

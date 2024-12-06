@@ -17,8 +17,26 @@ final class CorpsController extends AbstractController
     #[Route(name: 'app_corps_index', methods: ['GET'])]
     public function index(CorpsRepository $corpsRepository): Response
     {
+        $corps = new Corps();
+
+        // Récupérez le BLOB (ressource)
+
+        $imageBlob = $corps->getImage();
+
+        if (is_resource($imageBlob)) {
+            // Convertissez la ressource en une chaîne
+            $imageContent = stream_get_contents($imageBlob);
+            fclose($imageBlob); // Fermez la ressource une fois utilisée
+        } else {
+            $imageContent = $imageBlob; // Si ce n'est pas une ressource, utilisez-la directement
+        }
+
+        // Encodez en Base64
+        $imageBase64 = base64_encode($imageContent);
+
         return $this->render('corps/index.html.twig', [
             'corps' => $corpsRepository->findAll(),
+            'imageBase64' => $imageBase64,
         ]);
     }
 

@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ corps.id }}</td>
                 <td>{{ corps.organe }}</td>
-                <td>{{ corps.image }}</td>
+                <td>{{ imageBase64 }}</td>
                 <td>{{ corps.description }}</td>
                 <td>
                     <a href="{{ path('app_corps_show', {'id': corps.id}) }}">show</a>

@@ -42,7 +42,7 @@ class Corps
 
     public function getImage()
     {
-        return $this->image;
+        return base64_decode($this->image);
     }
 
     public function setImage($image): static
